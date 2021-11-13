@@ -1,7 +1,6 @@
 package com.robocode;
 
 import robocode.*;
-
 import java.io.*;
 
 /**
@@ -14,8 +13,8 @@ import java.io.*;
  *   - {1-100, 101-200, 201-300, 301-400, 401-500, 501-600}
  * - State 3 : Distance to enemy (4)
  *   - {1-250, 251-500, 501-750, 751-1000}
- * - State 4 : Bearing (4)
- *   - {1-90, 91-180, 181-270, 271-360}
+ * - State 4 : Energy (4)
+ *   - {0, 1-33, 34-66, 67-100}
  * - Action (5):
  *   - {Circle clockwise, circle anticlockwise, advance, retreat, fire}
  * Total number of entries in LUT = 8 x 6 x 4 x 4 x 5 = 3840
@@ -47,7 +46,7 @@ public class LUT implements CommonInterface {
     }
 
     /**
-     * Initialize the lut array to random number between {0, 1}.
+     * Initialize the lut array to random number between {0, 1} or zero.
      * Initialize the accessCnt array to 0.
      */
     public void initLUT () {
@@ -130,9 +129,6 @@ public class LUT implements CommonInterface {
             int zz = 0;
             while (line != null) {
                 String splitLine[] = line.split("\t");
-                //System.out.println(splitLine[0]);
-                //System.out.println(splitLine[1]);
-                //System.out.println(splitLine[2]);
                 int a = Character.getNumericValue(splitLine[0].charAt(0));
                 int b = Character.getNumericValue(splitLine[0].charAt(1));
                 int c = Character.getNumericValue(splitLine[0].charAt(2));

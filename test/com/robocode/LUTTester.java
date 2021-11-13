@@ -4,8 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import robocode.BulletHitEvent;
 import robocode.HitByBulletEvent;
-
-import java.io.FileWriter;
 import java.util.Arrays;
 
 /** Test Driven Development (TDD) approach is used where the software is made as modular as possible via Java methods.
@@ -37,17 +35,18 @@ public class LUTTester {
         Assert.assertEquals(2.43, lut.outputFor(x), 0.005);
     }
 
+    // Test exploreAction()
     @Test
     public void testExploreAction() {
         MyRobotLUT robot = new MyRobotLUT();
 
         MyRobotLUT.stateAction rndAction = robot.exploreAction();
-        //System.out.println("Random action = " + rndAction);
 
         Assert.assertTrue("Explored action should be {a1, a2, a3, a4, a5}",
                 Arrays.asList(MyRobotLUT.stateAction.values()).contains(rndAction));
     }
 
+    // Test quantPos()
     @Test
     public void testQuantPos() {
         MyRobotLUT robot = new MyRobotLUT();
@@ -60,6 +59,7 @@ public class LUTTester {
         Assert.assertEquals(7, robot.quantPos(799));
     }
 
+    // Test quantDist()
     @Test
     public void testQuantDist() {
         MyRobotLUT robot = new MyRobotLUT();
@@ -73,6 +73,7 @@ public class LUTTester {
         Assert.assertEquals(3, robot.quantDist(999));
     }
 
+    // Test quantBear()
     @Test
     public void testQuantBear() {
         MyRobotLUT robot = new MyRobotLUT();
@@ -86,6 +87,21 @@ public class LUTTester {
         Assert.assertEquals(3, robot.quantBear(119));
     }
 
+    // Test quantEnergy()
+    @Test
+    public void testQuantEnergy() {
+        MyRobotLUT robot = new MyRobotLUT();
+
+        Assert.assertEquals(0, robot.quantEnergy(0));
+        Assert.assertEquals(1, robot.quantEnergy(1));
+        Assert.assertEquals(1, robot.quantEnergy(30));
+        Assert.assertEquals(2, robot.quantEnergy(35));
+        Assert.assertEquals(2, robot.quantEnergy(60));
+        Assert.assertEquals(3, robot.quantEnergy(67));
+        Assert.assertEquals(3, robot.quantEnergy(100));
+    }
+
+    // Test onBulletHit() and onHitByBullet()
     @Test
     public void testOnBulletHit() {
         MyRobotLUT robot = new MyRobotLUT();
@@ -105,6 +121,7 @@ public class LUTTester {
         Assert.assertEquals(-0.25, robot.currReward, 0.005);
     }
 
+    // Test train() and greedyAction()
     @Test
     public void testGreedyAction() {
         MyRobotLUT robot = new MyRobotLUT();
@@ -133,9 +150,9 @@ public class LUTTester {
         Assert.assertEquals(MyRobotLUT.stateAction.a5, robot.greedyAction(1.0, 150, 700, 170));
     }
 
+    // Test learnQ()
     @Test
     public void testLearnQ() {
-        //LUT lut = new LUT(8, 6, 4, 4, 5, true);
         double [] c1 = {0, 1, 2, 3, 0}; // Current state
         double [] c2 = {0, 1, 2, 3, 1};
         double [] c3 = {0, 1, 2, 3, 2};
@@ -155,12 +172,12 @@ public class LUTTester {
         robot.currStateXPos = MyRobotLUT.stateXPos.x1;
         robot.currStateYPos = MyRobotLUT.stateYPos.y2;
         robot.currStateDist = MyRobotLUT.stateDist.d3;
-        robot.currStateBear = MyRobotLUT.stateBear.b4;
+        robot.currStateEnergy = MyRobotLUT.stateEnergy.e4;
 
         robot.prevStateXPos = MyRobotLUT.stateXPos.x7;
         robot.prevStateYPos = MyRobotLUT.stateYPos.y5;
         robot.prevStateDist = MyRobotLUT.stateDist.d2;
-        robot.prevStateBear = MyRobotLUT.stateBear.b3;
+        robot.prevStateEnergy = MyRobotLUT.stateEnergy.e3;
         robot.prevStateAction = MyRobotLUT.stateAction.a4;
 
         Assert.assertEquals(1.68, robot.learnQ(1.2), 0.005);
