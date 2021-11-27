@@ -163,17 +163,6 @@ public class MyRobotNN extends AdvancedRobot {
 
                     // Compute Q based on current rewards and update previous Q
                     updatePrevQ();
-                    /*
-                    double[] x = new double[]{
-                            prevState.getXPos(),
-                            prevState.getYPos(),
-                            prevState.getDist(),
-                            prevState.getEnergy(),
-                            prevStateAction.ordinal()};
-
-                    replayMemory.add(new Experience(prevState, prevStateAction, currReward, currState));
-                    nn.train(x, learnQ(prevState, prevStateAction, currReward, currState));
-                    */
                     runMode = mode.scan;    // Switch to scan mode
                     break;
                 }
@@ -290,15 +279,12 @@ public class MyRobotNN extends AdvancedRobot {
 
         replayMemory.add(new Experience(prevState, prevStateAction, currReward, currState));
         replayTrain(x);
-        //nn.train(x, learnQ(prevState, prevStateAction, currReward, currState));
     }
 
     /**
      * Train NN using multiple vectors saved in replayMemory
      */
     public void replayTrain(double[] x) {
-        //replayMemory.add(new Experience(prevState, prevStateAction, currReward, currState));
-        //replayTrain(x);
         int trainSize = Math.min(replayMemory.sizeOf(), memSize);
         Object[] vector = replayMemory.sample(trainSize);
 
@@ -467,17 +453,6 @@ public class MyRobotNN extends AdvancedRobot {
 
         // Update previous Q before the round ends
         updatePrevQ();
-        /*
-        double[] x = new double[]{
-                prevState.getXPos(),
-                prevState.getYPos(),
-                prevState.getDist(),
-                prevState.getEnergy(),
-                prevStateAction.ordinal()};
-
-        nn.train(x, learnQ(prevState, prevStateAction, currReward, currState));
-
-         */
     }
 
     // Lose the round --> bad terminal reward
@@ -487,17 +462,6 @@ public class MyRobotNN extends AdvancedRobot {
 
         // Update previous Q before the round ends
         updatePrevQ();
-        /*
-        double[] x = new double[]{
-                prevState.getXPos(),
-                prevState.getYPos(),
-                prevState.getDist(),
-                prevState.getEnergy(),
-                prevStateAction.ordinal()};
-
-        nn.train(x, learnQ(prevState, prevStateAction, currReward, currState));
-
-         */
     }
 
     // Round ended --> reset reward stats and increase number of rounds for winning statistics calculation
