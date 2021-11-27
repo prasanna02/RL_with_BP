@@ -2,6 +2,8 @@
 
 ### In part 2 of assignment, RL is done via lookup table to represent the Q-value function.  State space reduction is used to model the lookup table with a reasonable length.  In part 3 of assignment, NN will be used to train the Q-value function to eliminate the need to store a massive lookup table in memory.
 
+![image](https://user-images.githubusercontent.com/77813576/143691980-885ea25e-59a5-4827-a567-9c14288e262d.png)
+
 ### The following Java files are included in this project:
 
 - **CommonInterface.java** and **NeuralNetInterface.java**
